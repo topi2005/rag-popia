@@ -1,0 +1,11 @@
+.venv/
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+
+# the PDF and generated chunks are rebuilt from the README instructions
+data/
+
+.env
+.vscode/
+.DS_Store
