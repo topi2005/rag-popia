@@ -1,0 +1,38 @@
+question,pages,in_scope
+What does the Act define as "personal information"?,14,yes
+What is the meaning of "consent" in terms of the Act?,12,yes
+What does the Act mean by "responsible party"?,16,yes
+What is the purpose of the Act as set out in section 2?,16,yes
+What are the eight conditions for the lawful processing of personal information listed in section 4?,18,yes
+Under what circumstances may personal information be processed in terms of section 11(1)?,24,yes
+What does the minimality condition require when processing personal information?,24,yes
+What steps must a responsible party take to ensure the quality of information under section 16?,30,yes
+What security measures must a responsible party implement to protect the integrity and confidentiality of personal information?,32,yes
+When is the processing of special personal information prohibited under section 26?,40,yes
+Can an organisation collect more information about someone than it actually needs?,24,yes
+Can a company keep someone's personal details forever after the original reason for collecting them has passed?,26,yes
+Can a business use information it collected for one reason for a completely different reason later?,28,yes
+What must an organisation tell someone when it collects their personal details?,30,yes
+What should an organisation do if it discovers that someone's personal details are incorrect?,30,yes
+Can a company give someone's personal details to another business that processes the information on its behalf?,34,yes
+What must a company do if someone outside the organisation gains access to customers' personal details?,34,yes
+Can a person ask an organisation whether it has their personal information and request a copy?,36,yes
+Can someone ask an organisation to correct or delete personal details that it holds about them?,36,yes
+Can a company send promotional emails or text messages to someone who has never agreed to receive them?,74,yes
+Can a company make an important decision about someone entirely through a computer system without human involvement?,76,yes
+Can a South African organisation send someone's personal details to a company based in another country?,76;78,yes
+What must an organisation consider when collecting personal information and later deciding how long to keep it?,26;30,yes
+What responsibilities does an organisation have when it hires an outside service provider to handle personal information?,32;34,yes
+What rights does a person have if their personal information is processed unlawfully and they want to challenge the organisation responsible?,36;78;94;96,yes
+Under what circumstances can an organisation process a child's personal information and what additional requirements apply when the information is also special personal information?,46;48,yes
+What must an organisation do before sending personal information to another country and what exceptions allow the transfer?,68;76;78,yes
+What can happen after someone reports a privacy violation to the Information Regulator and what legal remedies may follow?,80;82;92;94;96,yes
+Can a person object to a company using their personal information for direct marketing?,24,yes
+What information must a person receive before their details are added to a public telephone directory?,76,yes
+What are the requirements for registering a private company with the Companies and Intellectual Property Commission?,,no
+What rights do consumers have under the California Consumer Privacy Act?,,no
+What is the process for registering a trademark in South Africa?,,no
+Does POPIA require every organisation to encrypt personal information using AES-256 encryption?,,no
+Does POPIA require organisations to report every data breach to the Information Regulator within exactly 72 hours?,,no
+Does POPIA prescribe a specific software platform that organisations must use to store personal information?,,no
+Does POPIA specify the minimum number of cybersecurity employees that every organisation must employ?,,no

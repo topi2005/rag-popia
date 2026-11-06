@@ -34,7 +34,7 @@ Source: the Act as published in the Government Gazette (26 November 2013), saved
 
 `ingest.py` extracts the text page by page, cleans it, and splits it into overlapping chunks of 180 words (40-word overlap), each stored with its PDF page number in `data/chunks.jsonl`.
 
-First run: 76 PDF pages produced 271 chunks (49 to 180 words, median 180).
+First run (before cleaning): 76 PDF pages produced 271 chunks. After cleaning and skipping the publisher’s notice: 74 English pages produced 252 chunks (41 to 180 words, median 180), only page 10 skipped as Afrikaans, and no leftover headers or Afrikaans-looking chunks.
 
 Problems found by inspecting the output, and how they were handled:
 
@@ -43,6 +43,7 @@ Problems found by inspecting the output, and how they were handled:
 | The Gazette's running header ("No. 37067 GOVERNMENT GAZETTE, 26 November 2013 Act No. 4 of 2013 ...") appears on every page and would pollute retrieval | Removed with a targeted pattern; the script reports any chunks that still contain it |
 | Ligatures such as "ﬁ" in the extracted text | Normalised to plain letters (Unicode NFKC) |
 | Page 1 is the publisher's notice, not part of the Act | Skipped |
+| The PDF also contains Afrikaans pages (running header "Wet No. 4 van 2013"), which English questions cannot match | Detected by their header and excluded; the script reports how many pages were skipped and checks that no Afrikaans-looking chunks remain |
 
 Known limitations of the chunking:
 
@@ -69,7 +70,29 @@ Metrics:
 
 ## Hypotheses
 
-_To be written by the author before running retrieval, and not edited afterwards._
+**H1**: Embedding-based retrieval will achieve a Hit@3 score at least 5 percentage points higher than TF-IDF, while the difference in Hit@5 will be smaller (approximately 0–5 percentage points).
+Reason: Embeddings should capture semantic similarity between questions and legal passages even when they use different wording. However, TF-IDF may still retrieve relevant passages within a larger candidate set through shared legal terminology.
+Judged by: Hit@3 and Hit@5, reported as percentage-point differences between methods.
+
+**H2**: TF-IDF will perform better on questions using terminology close to the Act's wording, while embeddings will perform better on everyday paraphrased questions. The difference between methods will be larger for paraphrased questions than for Act-wording questions.
+Reason: TF-IDF relies heavily on lexical overlap, which should benefit questions containing terms such as "responsible party", "personal information" and "lawful processing". Embeddings should be more capable of matching everyday language to the underlying legal concepts.
+Judged by: Hit@3 and MRR, calculated separately for Act-wording and paraphrased questions.
+
+**H3**: Neither retrieval method will consistently retrieve both gold pages for multi-page questions. Embeddings will retrieve both pages for at least 50% of these questions at k=5, compared with at least 35% for TF-IDF.
+Reason: Multi-page questions require retrieving passages that cover different parts of a legal requirement. Semantic similarity may help identify conceptually related passages, but separate page-level chunks can make it difficult to retrieve all required pages together.
+Judged by: Multi-page coverage@5: the percentage of multi-page questions for which all gold pages appear among the top five retrieved chunks.
+
+**H4**: Questions whose answers depend on information split across consecutive PDF pages will have lower Hit@3 scores than questions whose answers are contained within a single page, for both retrieval methods.
+Reason: The page-based chunking strategy separates text at page boundaries. A question requiring context from the end of one page and the beginning of another may not match either chunk strongly enough on its own.
+Judged by: Hit@3 for boundary-dependent questions versus single-page questions, reported separately for TF-IDF and embeddings.
+
+**H5**: Out-of-scope questions will have lower top-1 similarity scores on average than in-scope questions for both retrieval methods, but the two score distributions will overlap.
+Reason: Some out-of-scope questions may share general legal or privacy terminology with POPIA, even though the Act does not answer them. This could produce relatively high similarity scores despite the question being outside the document's scope.
+Judged by: Mean and median top-1 scores for in-scope and out-of-scope questions, and the degree of overlap between their score distributions.
+
+**H6**: Retrieval failures will be more common for multi-section questions and questions requiring legal definitions or cross-references than for straightforward questions about a single provision.
+Reason: Questions involving several provisions require the retriever to identify multiple relevant passages. Questions involving definitions and cross-references may also use wording that differs substantially from the relevant passage.
+Judged by: Hit@3 and MRR grouped by question type, supported by manual examination of failed retrievals.
 
 ## Results
 
