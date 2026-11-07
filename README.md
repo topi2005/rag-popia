@@ -95,6 +95,17 @@ Judged by: Mean and median top-1 scores for in-scope and out-of-scope questions,
 Reason: Questions involving several provisions require the retriever to identify multiple relevant passages. Questions involving definitions and cross-references may also use wording that differs substantially from the relevant passage.
 Judged by: Hit@3 and MRR grouped by question type, supported by manual examination of failed retrievals.
 
+## Measurement definitions (fixed before running retrieval)
+
+- **Hit@k:** at least one gold page appears among the printed pages of the top-k chunks (chunk-level, k = 1, 3, 5).
+- **MRR:** mean of 1/rank, where rank is the position of the first chunk on a gold page, over in-scope questions.
+- **Coverage@5:** for multi-page questions, all gold pages appear among the top 5 chunks.
+- **Boundary-dependent question (H4):** a question whose gold pages include two consecutive PDF pages.
+- **Question type (H6):** labelled by the author before retrieval: `single`, `multi-section` or `definition-xref`.
+- **Score comparison (H5):** top-1 similarity compared within each method; overlap measured by AUC for separating in-scope from out-of-scope questions, and by the share of out-of-scope questions scoring above the in-scope median.
+- **Sample size:** 30 in-scope questions (each worth 3.3 points), 7 multi-page, 7 out-of-scope. Differences of one or two questions are treated as noise; paired bootstrap intervals are reported for H1.
+- **Grading:** a hypothesis is *confirmed* if every numeric or directional claim holds, *partly confirmed* if some do, and *refuted* otherwise. "Consistently" in H3 means 100% coverage.
+
 ## Results
 
 _Not yet run._
