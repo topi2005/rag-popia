@@ -44,11 +44,12 @@ Problems found by inspecting the output, and how they were handled:
 | Ligatures such as "ﬁ" in the extracted text | Normalised to plain letters (Unicode NFKC) |
 | Page 1 is the publisher's notice, not part of the Act | Skipped |
 | The PDF also contains Afrikaans pages (running header "Wet No. 4 van 2013"), which English questions cannot match | Detected by their header and excluded; the script reports how many pages were skipped and checks that no Afrikaans-looking chunks remain |
+| Page numbers had two possible meanings (PDF index vs printed number) | chunks store both; evaluation uses printed numbers |
 
 Known limitations of the chunking:
 
-- Chunks are built **per page**, so a passage that crosses a page break is split in two.
-- The `page` field is the **PDF page index** (1 to 76), not the printed Gazette page number. Gold labels in the evaluation set use the same PDF page index.
+- Chunks are built per page, so a passage that crosses a page break is split in two.
+- Each chunk stores both the PDF page index (page) and the printed Gazette page number (printed_page). Gold labels in the evaluation set and citations use the printed Gazette numbers.
 
 ## Evaluation plan
 
